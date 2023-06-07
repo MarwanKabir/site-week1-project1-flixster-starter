@@ -83,19 +83,35 @@ function generateCards(movieObject){
 
     //Create rating
     let rating = document.createElement('span');
-    let ratingContent = document.createTextNode(movieObject.vote_average);
     rating.classList.add('rating');
+    let ratingContent = document.createTextNode(movieObject.vote_average);
     rating.appendChild(ratingContent);
 
     //Create average container
-    let averageContainer = document.createElement('span');
+    let averageContainer = document.createElement('div');
+    averageContainer.classList.add('average');
     averageContainer.appendChild(star);
     averageContainer.appendChild(rating);
     document.body.appendChild(averageContainer);
 
+    //Create image
     let image = document.createElement('img');
-    image.src = "https://image.tmdb.org/t/p/w342" + movieObject.poster_path
+    image.src = "https://image.tmdb.org/t/p/w342" + movieObject.poster_path;
     document.body.insertBefore(image, averageContainer);
+
+    //Create movie name
+    let name = document.createElement('div');
+    name.classList.add('name');
+    name.innerText = movieObject.original_title;
+    document.body.insertBefore(name, averageContainer.nextSibling);
+
+    //Create movie section
+    let movie = document.createElement('section');
+    movie.classList.add('movie');
+    movie.appendChild(image);
+    movie.appendChild(averageContainer);
+    movie.appendChild(name);
+    document.body.appendChild(movie);
 }
 
 generateCards(firstMovie)
