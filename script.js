@@ -72,4 +72,4 @@ let fakeData = {
     "total_pages": 98,
     "total_results": 1951
 }
-console.log(fakeData.results[0])
+let firstMovie = fakeData.results[0]
