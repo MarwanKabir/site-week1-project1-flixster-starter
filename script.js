@@ -73,3 +73,29 @@ let fakeData = {
     "total_results": 1951
 }
 let firstMovie = fakeData.results[0]
+
+function generateCards(movieObject){
+    //Create star
+    let star = document.createElement('span');
+    star.classList.add('star');
+    let starContent = document.createTextNode('⭐️');
+    star.appendChild(starContent);
+
+    //Create rating
+    let rating = document.createElement('span');
+    let ratingContent = document.createTextNode(movieObject.vote_average);
+    rating.classList.add('rating');
+    rating.appendChild(ratingContent);
+
+    //Create average container
+    let averageContainer = document.createElement('span');
+    averageContainer.appendChild(star);
+    averageContainer.appendChild(rating);
+    document.body.appendChild(averageContainer);
+
+    let image = document.createElement('img');
+    image.src = "https://image.tmdb.org/t/p/w342" + movieObject.poster_path
+    document.body.insertBefore(image, averageContainer);
+}
+
+generateCards(firstMovie)
