@@ -76,7 +76,7 @@ let firstMovie = fakeData.results[0]
 let movieGrid = document.querySelector('.movies-grid')
 const APIKey = '194d5fdcc4bae0a5d9cc18d8709b9f39'
 const URL = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + APIKey 
-const button = document.querySelector('#button')
+const button = document.querySelector('#load-more-movies-btn')
 
 function generateCards(movieObject){
     //Create star
@@ -133,5 +133,5 @@ async function displayCards(){
     }
 }
 
-button.addEventListener('click', displayCards())
+button.addEventListener('click', displayCards)
 
