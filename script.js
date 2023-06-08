@@ -73,11 +73,17 @@ let fakeData = {
     "total_results": 1951
 }
 let firstMovie = fakeData.results[0]
+let movieGrid = document.querySelector('.movies-grid')
+const APIKey = '194d5fdcc4bae0a5d9cc18d8709b9f39'
+const URL = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + APIKey 
+const button = document.querySelector('#button')
 
 function generateCards(movieObject){
     //Create star
+
     let star = document.createElement('span');
     star.classList.add('star');
+
     let starContent = document.createTextNode('⭐️');
     star.appendChild(starContent);
 
@@ -92,26 +98,40 @@ function generateCards(movieObject){
     averageContainer.classList.add('average');
     averageContainer.appendChild(star);
     averageContainer.appendChild(rating);
-    document.body.appendChild(averageContainer);
 
     //Create image
     let image = document.createElement('img');
+    image.classList.add('movie-poster')
     image.src = "https://image.tmdb.org/t/p/w342" + movieObject.poster_path;
-    document.body.insertBefore(image, averageContainer);
+
 
     //Create movie name
     let name = document.createElement('div');
     name.classList.add('name');
     name.innerText = movieObject.original_title;
-    document.body.insertBefore(name, averageContainer.nextSibling);
+    // document.body.insertBefore(name, averageContainer.nextSibling);
 
     //Create movie section
     let movie = document.createElement('section');
-    movie.classList.add('movie');
+    movie.classList.add('movie-title');
     movie.appendChild(image);
     movie.appendChild(averageContainer);
     movie.appendChild(name);
-    document.body.appendChild(movie);
+    movieGrid.appendChild(movie)
 }
 
-generateCards(firstMovie)
+async function getAPIData(){
+    const res = await fetch(URL)
+    const data = await res.json()
+    return data
+}
+
+async function displayCards(){
+    let Data = await getAPIData()
+    for(i = 0; i < Data.results.length; i++){
+        generateCards(Data.results[i])
+    }
+}
+
+button.addEventListener('click', displayCards())
+
