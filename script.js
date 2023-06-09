@@ -75,10 +75,11 @@ let fakeData = {
 let firstMovie = fakeData.results[0]
 
 let movieGrid = document.querySelector('.movies-grid')
-let currentPage = 2
+let currentPage = 1
 const APIKey = '194d5fdcc4bae0a5d9cc18d8709b9f39'
 // const URL = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + APIKey 
 const button = document.querySelector('#load-more-movies-btn')
+let searchValue = ""
 
 function generateCards(movieObject){
     //Create star
@@ -128,7 +129,6 @@ function generateCards(movieObject){
 //         generateCards(Data.results[i])
 //     }
 // }
-
 async function fetchMovies(){
     const URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${APIKey}&page=${currentPage}`
     const response = await fetch(URL)
@@ -142,7 +142,35 @@ async function fetchMovies(){
     }
 }
 
+async function fetchSearchMovies(){
+    const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${APIKey}&query=${searchValue}`
+    const response = await fetch(searchURL)
+    const Data = await response.json()
+    const movies = Data.results
+    for(let i = 0; i < movies.length;i++){
+        const movie = movies[i]
+        if(movie !== null && movie !== undefined && movie.poster_path){
+            generateCards(movie)
+        }
+    }
+}
+
 fetchMovies()
+
+const searchInput = document.querySelector('input')
+
+searchInput.addEventListener('input', (event)=> {
+    
+    searchValue = event.target.value
+    if(searchValue == ""){
+        movieGrid.innerHTML = "";
+        currentPage = 1 
+        fetchMovies()
+    }else{
+        movieGrid.innerHTML = '';
+        fetchSearchMovies()
+    }
+})
 
 button.addEventListener('click', () => {
     currentPage++
