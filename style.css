@@ -4,3 +4,39 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+body{
+    background-color: #141414;
+}
+.header{
+    text-align: center;
+    color: #F7F5FB;
+    font-family: fantasy;
+}
+.header_2{
+    text-align: left;
+    color: #F7F5FB;
+    font-family: fantasy;
+}
+.average{
+    color: #F7F5FB;
+}
+.name{
+    color: #F7F5FB;
+}
+
+.button-section{
+    text-align: center;
+}
+.movie-poster{
+    width: 100%;
+}
+
+#load-more-movies-btn{
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: brown;
+    border: none;
+    border-radius: 4px;
+    color: antiquewhite;
+    cursor: pointer;
+}
