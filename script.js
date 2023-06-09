@@ -80,6 +80,7 @@ const APIKey = '194d5fdcc4bae0a5d9cc18d8709b9f39'
 // const URL = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + APIKey 
 const button = document.querySelector('#load-more-movies-btn')
 let searchValue = ""
+let brokenImage = 'https://serpstat.com/files/img/34/1676542462.4999.png'
 
 function generateCards(movieObject){
     //Create star
@@ -105,7 +106,11 @@ function generateCards(movieObject){
     //Create image
     let image = document.createElement('img');
     image.classList.add('movie-poster')
-    image.src = "https://image.tmdb.org/t/p/w342" + movieObject.poster_path;
+    if(movieObject.poster_path){
+        image.src = "https://image.tmdb.org/t/p/w342" + movieObject.poster_path
+    }else{
+        image.src = brokenImage
+    }
 
 
     //Create movie name
@@ -136,7 +141,7 @@ async function fetchMovies(){
     const movies = Data.results
     for(let i = 0; i < movies.length;i++){
         const movie = movies[i]
-        if(movie !== null && movie !== undefined && movie.poster_path){
+        if(movie !== null && movie !== undefined){
             generateCards(movie)
         }
     }
@@ -149,7 +154,7 @@ async function fetchSearchMovies(){
     const movies = Data.results
     for(let i = 0; i < movies.length;i++){
         const movie = movies[i]
-        if(movie !== null && movie !== undefined && movie.poster_path){
+        if(movie !== null && movie !== undefined){
             generateCards(movie)
         }
     }
